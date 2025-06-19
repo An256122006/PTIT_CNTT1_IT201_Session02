@@ -5,6 +5,10 @@ void xoa(int *arr,int *n) {
     printf("moi ban nhap vi tri:");
     scanf("%d",&poi);
     poi--;
+    if (poi<0 && poi>*n-1) {
+        printf("Vi tri khong hop le");
+        return;
+    }
     for (int i=poi;i<*n-1;i++) {
         arr[i]=arr[i+1];
     }

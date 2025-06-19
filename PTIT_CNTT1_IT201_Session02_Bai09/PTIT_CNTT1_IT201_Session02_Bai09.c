@@ -1,27 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 void check(int *arr,int *n) {
-    int *arr2 = (int *)malloc(sizeof(int)*(*n));
-    int temp=0;
-    for(int i=0;i<*n;i++){
-        for(int j=i+1;j<*n;j++){
-            if(arr[i]==arr[j]){
-                arr2[temp]=arr[i];
-                temp++;
+    int arr2[100]={0};
+    for(int i=0;i<*n;i++) {
+        arr2[arr[i]]++;
+    }
+    for(int i=0;i<*n;i++) {
+        for(int j=0;j<*n-i-1;j++) {
+            if (arr[j]<arr[j+1]) {
+                int temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
             }
         }
     }
-    if (temp>0) {
-        int max=0;
-        for(int i=0;i<temp;i++) {
-            if(arr2[i]>max) {
-                max=arr2[i];
-            }
+    int max_count = 0;
+    int max_value = -1;
+
+    for (int i = 0; i < 100; i++) {
+        if (arr2[i] > max_count || (arr2[i] == max_count && i > max_value)) {
+            max_count = arr2[i];
+            max_value = i;
         }
-        printf("%d\n",max);
-    }else {
-        printf("mang khong co phan tu trung lap");
     }
+    printf("max=%d\n",max_value);
 }
 int main(void) {
     int n;
